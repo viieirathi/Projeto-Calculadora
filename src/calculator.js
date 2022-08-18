@@ -1,1 +1,1 @@
-let calculadora = new CalcCalculator;
+let calculator = new CalcCalculator;
