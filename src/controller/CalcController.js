@@ -1,8 +1,8 @@
-class CalcCalculadora{
+class CalcCalculator{
 
     constructor(){
         this._displayCalc = '0'
-        this._dataAtual;
+        this._currentDate;
     }
 
     get displayCalc(){
@@ -13,11 +13,11 @@ class CalcCalculadora{
         this._displayCalc = value;
     }
 
-    get dataAtual(){
-        return this._dataAtual;
+    get currentDate(){
+        return this._currentDate;
     }
 
-    set dataAtual(data){
-        this._dataAtual = data
+    set currentDate(data){
+        this._currentDate = data
     }
 }
