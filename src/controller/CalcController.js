@@ -15,6 +15,16 @@ class CalcCalculator {
     }, 1000);
   }
 
+  initButtonsEvent() {
+    let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", e => {
+        console.log(btn.className.baseVal.replace('btn-', ''));
+      });
+    });
+  }
+
   setDisplayDateTime() {
     this._dateEl.innerHTML = this.currentDate.toLocaleDateString();
     this._timeEl.innerHTML = this.currentDate.toLocaleTimeString();
