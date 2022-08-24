@@ -1,38 +1,54 @@
 class CalcCalculator {
+  constructor() {
+    this._displayCalcEl = document.querySelector("#display");
+    this._dateEl = document.querySelector("#data");
+    this._timeEl = document.querySelector("#hora");
+    this._currentDate;
+    this.initialize();
+    this.initButtonsEvent();
+  }
 
-    constructor() {
-        this._displayCalc = '0'
-        this._currentDate;
-        this.initialize();
-    }
+  initialize() {
+    this.setDisplayDateTime();
+    setInterval(() => {
+      this.setDisplayDateTime();
+    }, 1000);
+  }
 
-    initialize() {
+  setDisplayDateTime() {
+    this._dateEl.innerHTML = this.currentDate.toLocaleDateString();
+    this._timeEl.innerHTML = this.currentDate.toLocaleTimeString();
+  }
 
-        let displayCalcEl = document.querySelector('#display');
-        let dateEl = document.querySelector('#data');
-        let timeEl = document.querySelector('#hora')
+  get displayCalc() {
+    return this._displayCalcEl.innerHTML;
+  }
 
-        let currentTime = new Date();
+  set displayCalc(value) {
+    this._displayCalcEl.innerHTML = value;
+  }
 
-        displayCalcEl.innerHTML = '0';
-        dateEl.innerHTML = currentTime.toLocaleDateString()
-        timeEl.innerHTML = `${currentTime.getHours()}:${currentTime.getMinutes()}`
+  get displayDate() {
+    return this._dateEl.innerHTML;
+  }
 
-    }
+  set displayDate(value) {
+    this._dateEl.innerHTML = value;
+  }
 
-    get displayCalc() {
-        return this._displayCalc;
-    }
+  get displayTime() {
+    return this._timeEl.innerHTML;
+  }
 
-    set displayCalc(value) {
-        this._displayCalc = value;
-    }
+  set displayTime(value) {
+    this._timeEl.innerHTML = value;
+  }
 
-    get currentDate() {
-        return this._currentDate;
-    }
+  get currentDate() {
+    return new Date();
+  }
 
-    set currentDate(data) {
-        this._currentDate = data
-    }
+  set currentDate(value) {
+    return (this._currentDate = value);
+  }
 }
