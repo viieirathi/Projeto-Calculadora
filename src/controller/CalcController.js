@@ -10,6 +10,7 @@ class CalcCalculator {
     this._currentDate;
     this.initialize();
     this.initButtonsEvent();
+    this.initKeyboard();
   }
 
   initialize() {
@@ -20,6 +21,46 @@ class CalcCalculator {
     this.setLastNumberToDisplay();
   }
 
+  initKeyboard() {
+    document.addEventListener("keyup", (e) => {
+      switch (e.key) {
+        case "Escape":
+          this.clearAll();
+          break;
+        case "Backspace":
+          this.clearEntry();
+          break;
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+        case "%":
+          this.addOperation(e.key);
+          break;
+        case "Enter":
+        case "=":
+          this.calc();
+          break;
+        case ".":
+        case ",":
+          this.addDot(".");
+          break;
+        case "0":
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+          this.addOperation(parseInt(e.key));
+          break;
+      }
+    });
+  }
+
   addEventListenerAll(element, events, fn) {
     events.split(" ").forEach((event) => {
       element.addEventListener(event, fn, false);
@@ -28,8 +69,8 @@ class CalcCalculator {
 
   clearAll() {
     this._operation = [];
-    this._lastNumber = ''
-    this._lastOperator = ''
+    this._lastNumber = "";
+    this._lastOperator = "";
     this.setLastNumberToDisplay();
   }
 
@@ -57,7 +98,8 @@ class CalcCalculator {
     }
   }
 
-  getResult() {''
+  getResult() {
+    "";
     return eval(this._operation.join(""));
   }
 
@@ -66,7 +108,7 @@ class CalcCalculator {
     this._lastOperator = this.getLastItem();
 
     if (this._operation.length < 3) {
-      let firstItem = this._operation[0]
+      let firstItem = this._operation[0];
       this._operation = [firstItem, this._lastOperator, this._lastNumber];
     }
     if (this._operation.length > 3) {
@@ -99,7 +141,7 @@ class CalcCalculator {
     }
 
     if (!lastItem) {
-      lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
+      lastItem = isOperator ? this._lastOperator : this._lastNumber;
     }
     return lastItem;
   }
@@ -136,14 +178,18 @@ class CalcCalculator {
   }
 
   addDot() {
-   let lastOperation = this.getLastOperation();
-   if (typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
-   if (this.isOperator(lastOperation) || !lastOperation) {
-    this.pushOperation('0.')
-   } else {
-      this.setLastOperation(lastOperation.toString() + '.')
-   }
-   this.setLastNumberToDisplay();
+    let lastOperation = this.getLastOperation();
+    if (
+      typeof lastOperation === "string" &&
+      lastOperation.split("").indexOf(".") > -1
+    )
+      return;
+    if (this.isOperator(lastOperation) || !lastOperation) {
+      this.pushOperation("0.");
+    } else {
+      this.setLastOperation(lastOperation.toString() + ".");
+    }
+    this.setLastNumberToDisplay();
   }
 
   execBtn(value) {
